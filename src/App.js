@@ -1,18 +1,16 @@
 import React, { useRef, useState } from "react";
-///////// NEW STUFF ADDED USE STATE
-
-// import logo from './logo.svg';
 import * as tf from "@tensorflow/tfjs";
 import * as handpose from "@tensorflow-models/handpose";
 import Webcam from "react-webcam";
+import { Button, Divider, Switch, List } from '@material-ui/core';
 import "./App.css";
 import { drawHand } from "./utilities";
 
-///////// NEW STUFF IMPORTS
 import * as fp from "fingerpose";
 import victory from "./victory.png";
 import thumbs_up from "./thumbs_up.png";
-///////// NEW STUFF IMPORTS
+import Item from './Item';
+
 import {
   gesture1,
   gesture2,
@@ -28,20 +26,21 @@ function App() {
   const canvasRef = useRef(null);
   const detectionId = useRef(null);
   const currentSign = useRef(null);
-
-  ///////// NEW STUFF ADDED STATE HOOK
   const [emoji, setEmoji] = useState(null);
-
-  const [sign1, setSign1] = useState("one");
-  const [sign2, setSign2] = useState("two");
-  const [sign3, setSign3] = useState("three");
-  const [sign4, setSign4] = useState("four");
-  const [sign5, setSign5] = useState("five");
-  const [sign6, setSign6] = useState("six");
-  const [sign7, setSign7] = useState("seven");
-  const [sign8, setSign8] = useState("eight");
   const [toggle, setToggle] = useState(false);
   const [text, setText] = useState('');
+  const [link, setLink] = useState(false);
+  const [one, setOne] = useState('A');
+  const [two, setTwo] = useState('B');
+  const [three, setThree] = useState('C');
+  const [four, setFour] = useState('D');
+  const [five, setFive] = useState('E');
+  const [six, setSix] = useState('F');
+  const [seven, setSeven] = useState('G');
+  const [eight, setEight] = useState('H')
+  const handleChange = (event) => {
+    setLink(toggle => !toggle);
+  };
 
   const images = { thumbs_up: thumbs_up, victory: victory };
   ///////// NEW STUFF ADDED STATE HOOK
@@ -67,19 +66,11 @@ function App() {
       const videoWidth = webcamRef.current.video.videoWidth;
       const videoHeight = webcamRef.current.video.videoHeight;
 
-      // Set video width
       webcamRef.current.video.width = videoWidth;
       webcamRef.current.video.height = videoHeight;
-
-      // Set canvas height and width
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
-
-      // Make Detections
       const hand = await net.estimateHands(video);
-      // console.log(hand);
-
-      ///////// NEW STUFF ADDED GESTURE HANDLING
 
       if (hand.length > 0) {
         const GE = new fp.GestureEstimator([
@@ -113,19 +104,20 @@ function App() {
 
   const onClick = (e) => {
     e.preventDefault();
+    const map = [one, two, three, four, five, six, seven, eight];
+    console.log(map[Number(currentSign.current)-1]);
     if (toggle) {
       clearInterval(detectionId.current);
-      setText(text => text + currentSign.current);
+      setText(text => text + ' ' + map[Number(currentSign.current)-1]);
+      link && setTimeout(() => {
+        window.open(map[Number(currentSign.current)-1]);
+      }, 2000)
     } else {
       currentSign.current = null;
       runHandpose();
     }
     setToggle((toggle) => !toggle);
   }
-  // useEffect(() => {
-  //   runHandpose();
-  // }, []);
-
   return (
     <div className="App">
       <div className="header">
@@ -137,9 +129,9 @@ function App() {
       <div className="container">
         <div className="leftContainer">
           <div className="button">
-            <button onClick={onClick}>
+            <Button variant="contained" color="primary" onClick={onClick}>
               {toggle ? 'Stop Predicting' : 'Start Predicting'}
-            </button>
+            </Button>
           </div>
           <div className="videoContainer">
             <Webcam
@@ -154,69 +146,40 @@ function App() {
               }}
             />
           </div>
-          <div className="inputDict">
-            <div style={{textAlign: 'center'}}>Dictionary for 8 signs</div>
-            <div style={{margin: "0 auto"}}>
-              <ul style={{listStyleType: 'none', textAlign: 'center'}} className="dictionaryList">
-                <li>
-                  <div >Sign 1</div>
-                  <input
-                    value={sign1}
-                    onChange={(e) => setSign1(e.target.value)}
-                  />
-                </li>
-                <li>
-                  <div>Sign 2</div>
-                  <input
-                    value={sign2}
-                    onChange={(e) => setSign2(e.target.value)}
-                  />
-                </li>
-                <li>
-                  <div>Sign 3</div>
-                  <input
-                    value={sign3}
-                    onChange={(e) => setSign3(e.target.value)}
-                  />
-                </li>
-                <li>
-                  <div>Sign 4</div>
-                  <input
-                    value={sign4}
-                    onChange={(e) => setSign4(e.target.value)}
-                  />
-                </li>
-                <li>
-                  <div>Sign 5</div>
-                  <input
-                    value={sign5}
-                    onChange={(e) => setSign5(e.target.value)}
-                  />
-                </li>
-                <li>
-                  <div>Sign 6</div>
-                  <input
-                    value={sign6}
-                    onChange={(e) => setSign6(e.target.value)}
-                  />
-                </li>
-                <li>
-                  <div>Sign 7</div>
-                  <input
-                    value={sign7}
-                    onChange={(e) => setSign7(e.target.value)}
-                  />
-                </li>
-                <li>
-                  <div>Sign 8</div>
-                  <input
-                    value={sign8}
-                    onChange={(e) => setSign8(e.target.value)}
-                  />
-                </li>
-              </ul>
-            </div>
-          </div>
+          <Divider />
+          <Switch onChange={handleChange} color="primary"/>
+          <List dense={true} className="listStyle">
+            {
+              [{
+                text: one,
+                setText: setOne,
+              }, {
+                text: two,
+                setText: setTwo,
+              }, {
+                text: three,
+                setText: setThree,
+              }, {
+                text: four,
+                setText: setFour,
+              }, {
+                text: five,
+                setText: setFive,
+              }, {
+                text: six,
+                setText: setSix,
+              }, {
+                text: seven,
+                setText: setSeven,
+              }, {
+                text: eight,
+                setText: setEight,
+              }].map(({
+                text,
+                setText
+              }, index) => <Item key={index} text={text} index={index+1} setText={(e) => setText(e.target.value)} link={link}/>)
+            }
+          </List>
         </div>
         <div className="rightContainer">
           <div className="canvasContainer">
@@ -228,10 +191,15 @@ function App() {
                 width: 480,
                 height: 300,
               }}
-            />            
+            />
           </div>
           <div className="text">
             {text}
+          </div>
+          <div className="button">
+            <Button variant="contained" color="primary" onClick={() => setText('')}>
+              Clear
+            </Button>
           </div>
         </div>
       </div>
@@ -252,12 +220,12 @@ function App() {
             }}
           />
         ) : (
-          ""
-        )}
+            ""
+          )}
 
         {/* NEW STUFF */}
       </header>
-    </div>
+    </div >
   );
 }
 

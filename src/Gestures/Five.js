@@ -5,7 +5,7 @@ import {
   GestureDescription,
 } from "fingerpose";
 
-const gesture5 = new GestureDescription("Five");
+const gesture5 = new GestureDescription("5");
 
 for (const finger of [
   Finger.Index,

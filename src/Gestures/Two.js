@@ -5,7 +5,7 @@ import {
   GestureDescription,
 } from "fingerpose";
 
-const gesture2 = new GestureDescription("Two");
+const gesture2 = new GestureDescription("2");
 
 gesture2.addCurl(Finger.Index, FingerCurl.Nocurl, 1.0);
 gesture2.addDirection(Finger.Index, FingerDirection.VerticalUp, 1.0);

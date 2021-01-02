@@ -1,6 +1,6 @@
 import { Finger, FingerCurl, FingerDirection, GestureDescription  } from 'fingerpose';
 
-const gesture1 = new GestureDescription('One');
+const gesture1 = new GestureDescription('1');
 
 
 gesture1.addCurl(Finger.Thumb, FingerCurl.Nocurl, 1.0);

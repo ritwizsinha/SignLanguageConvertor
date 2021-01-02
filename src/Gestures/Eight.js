@@ -5,7 +5,7 @@ import {
     GestureDescription,
   } from "fingerpose";
   
-  const gesture8 = new GestureDescription("Eight");
+  const gesture8 = new GestureDescription("8");
   
   gesture8.addCurl(Finger.Index, FingerCurl.Nocurl, 1.0);
   gesture8.addDirection(Finger.Index, FingerDirection.VerticalUp, 1.0);

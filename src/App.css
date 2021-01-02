@@ -22,6 +22,7 @@
 .leftContainer {
   width: 50%;
   align-items: center;
+  text-align:center;
   height: 100%;
   position: relative;
   margin: 0;
@@ -30,7 +31,7 @@
   float: right;
   width: 50%;
   height: 1200px;
-  background-color: #22003c;
+  background-color: #000;
   border-radius: 20px;
 }
 
@@ -77,4 +78,17 @@
   font-size: 20px;
   color: white;
   letter-spacing: 1px;
+}
+
+.col {
+  height: 100%;
+  width: 33%;
+  text-align: center;
+}
+
+.listStyle {
+  width: 400px;
+  margin: 0 auto!important;
+  background-color: #fff;
+  border-radius: 10px;
 }
