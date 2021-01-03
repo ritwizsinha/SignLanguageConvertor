@@ -70,7 +70,7 @@ Pad the picture with zeros (zero-padding) so that it fits
 Drop the part of the image where the filter did not fit. This is called valid padding which keeps only valid part of the image.
 
 6. Leaky-Relu function
-![3 x 3 Output matrix](./public/leaky relu.png)
+In the project Leaky-Relu function is used. 
 
 7. Pooling Layer
 Pooling layers section would reduce the number of parameters when the images are too large. Spatial pooling also called subsampling or downsampling which reduces the dimensionality of each map but retains important information. Spatial pooling can be of different types:
