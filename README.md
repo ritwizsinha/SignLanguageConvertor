@@ -80,6 +80,10 @@ Pooling layers section would reduce the number of parameters when the images are
 Max pooling takes the largest element from the rectified feature map. Taking the largest element could also take the average pooling. Sum of all elements in the feature map call as sum pooling.
 ![3 x 3 Output matrix](./public/maxpool.png)
 
+8. Fully-Connected Layers
+
+Now we move on to the fully connected layer. Here’s where the classification happens. The matrix is first flattened into a vector and then passed through a neural net. The neural net it passes through is similar to an Artificial Neural Net in that it passes the vector through, applying weights and biases finally ending up with a classification. The CNN classifies the image by using a softmax activation function which gives the probability the input is from a certain class.
+
 
 ## Training
 
