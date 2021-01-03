@@ -72,7 +72,8 @@ Pad the picture with zeros (zero-padding) so that it fits
 Drop the part of the image where the filter did not fit. This is called valid padding which keeps only valid part of the image.
 
 6. Leaky-Relu function
-In the project Leaky-Relu function is used. 
+In the project Leaky-Relu function is used.
+![3 x 3 Output matrix](./public/leakyrelu.png)
 
 7. Pooling Layer
 Pooling layers section would reduce the number of parameters when the images are too large. Spatial pooling also called subsampling or downsampling which reduces the dimensionality of each map but retains important information. Spatial pooling can be of different types:
@@ -85,9 +86,51 @@ Max pooling takes the largest element from the rectified feature map. Taking the
 8. Fully-Connected Layers
 
 Now we move on to the fully connected layer. Here’s where the classification happens. The matrix is first flattened into a vector and then passed through a neural net. The neural net it passes through is similar to an Artificial Neural Net in that it passes the vector through, applying weights and biases finally ending up with a classification. The CNN classifies the image by using a softmax activation function which gives the probability the input is from a certain class.
+![3 x 3 Output matrix](./public/fulcon.png)
+
+## Dataset Processing
+The data was prepared in a brute-force manner by us ourselves & with help of little data augmentation. The data is organized into 26 folders with 10700 pictures in all folders for each letter of the alphabet.The program takes all the classes & randomly distributes it into 10,000 images for training & 700 for testing. The training is further divided into 80% actual training & 20% validation. In addition, to speed up training I down-scaled all the pictures in the data-set to 48x48 from 200x200.
+
+## Covolutional and Pooling Layers
+4 convolutional and pooling layers were used in this model. For each layer, 5 actions are performed:
+In the first line, the number of filters and filter size is defined. For the first layer, 64 3x3 filters are used. The input size of the image is also defined here as 48x48.
+
+After the matrix undergoes convolution, forming a feature matrix, it passes through batch normalization. This reduces the shift of hidden layer values. This makes training easier because it stabilizes the weights, improving accuracy.
+
+We next run it through a Re-LU function. This brings some non-linearity to the layer, allowing the CNN to understand the complicated pictures inputted.
+The next line is where pooling occurs. We have defined the pooling filter size as 2x2, and are using max-pooling. This reduces the matrix size even more.
+
+Finally, the matrix is passed through a dropout layer. What the dropout layer does is it randomly drops nodes that exist in the neural net. The benefit of dropping the nodes is that net becomes less sensitive to each individual node’s weights. This allows the net to be more generalized in it’s predictions, improving accuracy. In the model used, we drop 25% of the existing nodes which will be replaced by new ones in the next layer.
+
+The output of the first convolutional layer now becomes the input of the next layer. The matrix has already gotten smaller, but by passing it through more layers it becomes even smaller, showing only the key parts of the photo necessary for classification. These steps happen 4 times, the only thing changing is the filter size and number of filters used during convolution.
+
+## Fully-Connected Layers
+After convolution, it’s time for the fully-connected layers. But before that happens, the data is flattened into a single column vector.
+Now that the data can pass through the neural net, a dense layer is used. A dense layer is pretty much the neural net. It passes the input from the previous steps and outputs all of it to it’s neurons. The neurons are connected and pass data from one to the next layer. In this case, there are 256 neurons.
+Then, it goes through batch normalization.
+Then a ReLU function is used for activation.
+
+Finally, 25% of the nodes are once again dropped out using dropout.
+
+There are two fully connected layers, so the code repeats with 512 nodes.
+
+Once past the second fully connected layer, the output is put through a softmax function which is used to give the probability the image belongs to one of the 26 classes.
+
+The last few lines set the learning rate and evaluate the accuracy of the model.
 
 
 ## Training
+Now that we have defined the model, we have to train it. Training the model is where the CNN comes to life. Training is where the question of “what are the weights for the filters and fully connected layers?” is answered. A CNN uses backpropagation to define the weights for all the layers. Backpropagation consists of four steps: forward pass, loss function, backwards pass and finally weight update.
+
+1) The Forward pass consists of the image going through the model. At first, all the weights and biases are randomized, so the classification is also randomized. This is because the model and specifically the filters do not know how to identify the edges and features of the images.
+
+2) The classification accuracy is represented in the loss function. The loss function tells you how well your model categorized each image. It compares the predicted label of the image with the actual label of the training image. In our case, categorical crossentropy was used as the loss function.
+
+3) Next, is the backwards pass which identifies which weights caused the loss function to be high.
+
+4) When those weights are identified, the weights are updated such that the loss decreases. The learning rate specifies how much the weights can be changed. Eventually, the goal is to have the predicted label match up all the time with the actual label of the picture.
+
+
 
 
 ## Available Scripts
