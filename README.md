@@ -1,4 +1,20 @@
 # Multi Purpose Sign Language Detector
+We have used eight alignments of the hand to map to any functionality. Currently we have the option of mapping to specific labels or map to some link. This is essentially enforcing a new way of user navigation using handsigns. We have only used eight alignments and not covered the whole alphabet so as to get more accurate results with the training data available to us. With eight signs there is very less probability of vectors of two hand signs to be similar. 
+
+There can be many usecases and automation chances for such a application for example 
+1. Mapping the signs to some home functionality like turning the light one, turning fan off etc. 
+2. Making a map to most used applications or links and navigate to them using the hand alignments.
+3. Playing simple multiplayer games. 
+4. Making a page navigation usign the hand alignments. 
+5. Creating weird music 
+and many more.
+
+## Working
+
+The application implements two of the following above possiblities:
+1. Map the hand alignments to labels and make a sentence
+2. Map the hand alignments to links and open the link on the browser on detection.
+
 ![](./public/example.png)
 
 The signs used are given as follows:
@@ -11,6 +27,13 @@ The signs used are given as follows:
 6. ![Sign Six](./public/Six.png)
 7. ![Sign Seven](./public/Seven.png)
 8. ![Sign Eight](./public/Eight.png)
+
+
+## Concepts
+
+
+## Training
+
 
 ## Available Scripts
 
