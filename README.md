@@ -46,9 +46,11 @@ At each layer all the neurons are multiplied with the weight matrix and the non-
 3. Convolution layer
 
 Convolution is the first layer to extract features from an input image. Convolution preserves the relationship between pixels by learning image features using small squares of input data. It is a mathematical operation that takes two inputs such as image matrix and a filter or kernel.
+
 ![Image matrix multiplies kernel or filter matrix](./public/Convo_layer.png)
 
 Consider a 5 x 5 whose image pixel values are 0, 1 and filter matrix 3 x 3 as shown in below
+
 ![Image matrix multiplies kernel or filter matrix](./public/Multiplication.png)
 
 Then the convolution of 5 x 5 image matrix multiplies with 3 x 3 filter matrix which is called “Feature Map” as output shown in below
