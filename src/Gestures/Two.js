@@ -11,7 +11,6 @@ gesture2.addCurl(Finger.Index, FingerCurl.Nocurl, 1.0);
 gesture2.addDirection(Finger.Index, FingerDirection.VerticalUp, 1.0);
 
 gesture2.addCurl(Finger.Thumb, FingerCurl.Nocurl, 1.0);
-gesture2.addDirection(Finger.Thumb, FingerDirection.HorizontalLeft, 1.0)
 gesture2.addDirection(Finger.Thumb, FingerDirection.HorizontalRight, 1.0)
 
 
