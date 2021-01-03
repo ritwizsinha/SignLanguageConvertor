@@ -49,6 +49,7 @@ Consider a 5 x 5 whose image pixel values are 0, 1 and filter matrix 3 x 3 as sh
 ![Image matrix multiplies kernel or filter matrix](./public/Multiplication.png)
 
 Then the convolution of 5 x 5 image matrix multiplies with 3 x 3 filter matrix which is called “Feature Map” as output shown in below
+
 ![3 x 3 Output matrix](./public/Output.gif)
 
 Convolution of an image with different filters can perform operations such as edge detection, blur and sharpen by applying filters. The below example shows various convolution image after applying different types of filters (Kernels).
