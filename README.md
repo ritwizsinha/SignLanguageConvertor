@@ -1,4 +1,14 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Multi Purpose Sign Language Detector
+
+The signs used are given as follows:
+1. ![Sign One](./public/One.png)
+2. ![Sign Two](./public/Two.png)
+3. ![Sign Three](./public/Three.png)
+4. ![Sign Four](./public/Four.png)
+5. ![Sign Five](./public/Five.png)
+6. ![Sign Six](./public/Six.png)
+7. ![Sign Seven](./public/Seven.png)
+8. ![Sign Eight](./public/Eight.png)
 ![](./example.png)
 
 ## Available Scripts
