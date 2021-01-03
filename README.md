@@ -30,6 +30,25 @@ The signs used are given as follows:
 
 
 ## Concepts
+The concepts used here were the basics of image/video processing as well as deep learning and CNN's to classify the image dataset.
+1. Image representation
+A particular image is represented as a 3-D array with h*w*d dimensions. In a RGB image d is 3 which means there are 3 channels red,green & blue. Each channel has a 2-D 
+representation which means what amount of colour(3rd dimenion) is present at a particular region(denoted by 2-dimension). 
+
+2. Deep learning
+Deep learning (also known as deep structured learning) is part of a broader family of machine learning methods based on artificial neural networks(ANN's) with representation     learning. An ANN is based on a collection of connected units or nodes called artificial neurons, which loosely model the neurons in a biological brain. Each connection,         like the synapses in a biological brain, can transmit a signal to other neurons. An artificial neuron that receives a signal then processes it and can signal neurons connected to it. The "signal" at a connection is a real number, and the output of each neuron is computed by some non-linear activation function of the sum of its inputs. The connections are called edges. Neurons and edges typically have a weight that adjusts as learning proceeds. The weight increases or decreases the strength of the signal at a connection. Neurons may have a threshold such that a signal is sent only if the aggregate signal crosses that threshold. Typically, neurons are aggregated into layers. Different layers may perform different transformations on their inputs. Signals travel from the first layer (the input layer), to the last layer (the output layer), possibly after traversing the layers multiple times. 
+
+So basically the image undergoes various transformations in each layer and finally a vector is produced which will help in classifying the objects.
+At each layer all the neurons are multiplied with the weight matrix and the non-linear activation function here is 'Leaky-Relu'.
+
+3. Convolution layer
+Convolution is the first layer to extract features from an input image. Convolution preserves the relationship between pixels by learning image features using small squares of input data. It is a mathematical operation that takes two inputs such as image matrix and a filter or kernel.
+![Image matrix multiplies kernel or filter matrix](./public/Convo_layer.png)
+Consider a 5 x 5 whose image pixel values are 0, 1 and filter matrix 3 x 3 as shown in below
+![Image matrix multiplies kernel or filter matrix](./public/Multiplication.png)
+Then the convolution of 5 x 5 image matrix multiplies with 3 x 3 filter matrix which is called “Feature Map” as output shown in below
+![3 x 3 Output matrix](./public/Output.gif)
+Convolution of an image with different filters can perform operations such as edge detection, blur and sharpen by applying filters. The below example shows various convolution image after applying different types of filters (Kernels).
 
 
 ## Training
