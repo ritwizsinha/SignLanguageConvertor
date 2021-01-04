@@ -93,8 +93,8 @@ Now we move on to the fully connected layer. Here’s where the classification h
 ## Dataset Processing
 The data was prepared in a brute-force manner by us ourselves & with help of little data augmentation. The data is organized into 26 folders with 10700 pictures in all folders for each letter of the alphabet.The program takes all the classes & randomly distributes it into 10,000 images for training & 700 for testing. The training is further divided into 80% actual training & 20% validation. In addition, to speed up training I down-scaled all the pictures in the data-set to 48x48 from 200x200.
 
-## Covolutional and Pooling Layers
-4 convolutional and pooling layers were used in this model. For each layer, 5 actions are performed:
+## CNN's
+4 convolutional and pooling layers are there in this model. For each layer, five actions are performed:
 In the first line, the number of filters and filter size is defined. For the first layer, 64 3x3 filters are used. The input size of the image is also defined here as 48x48.
 
 After the matrix undergoes convolution, forming a feature matrix, it passes through batch normalization. This reduces the shift of hidden layer values. This makes training easier because it stabilizes the weights, improving accuracy.
