@@ -73,7 +73,8 @@ Drop the part of the image where the filter did not fit. This is called valid pa
 
 6. Relu function
 
-In the project Relu function is used.
+In the project Relu function is used as activation function.
+
 ![3 x 3 Output matrix](./public/leakyrelu.png)
 
 7. Pooling Layer
