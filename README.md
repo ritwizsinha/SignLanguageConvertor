@@ -71,8 +71,8 @@ diminshes after each layer. So We have two options:
 Pad the picture with zeros (zero-padding) so that it fits
 Drop the part of the image where the filter did not fit. This is called valid padding which keeps only valid part of the image.
 
-6. Leaky-Relu function
-In the project Leaky-Relu function is used.
+6. Relu function
+In the project Relu function is used.
 ![3 x 3 Output matrix](./public/leakyrelu.png)
 
 7. Pooling Layer
