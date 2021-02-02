@@ -7,8 +7,6 @@ import "./App.css";
 import { drawHand } from "./utilities";
 
 import * as fp from "fingerpose";
-import victory from "./victory.png";
-import thumbs_up from "./thumbs_up.png";
 import Item from './Item';
 
 import {
@@ -25,8 +23,10 @@ function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const detectionId = useRef(null);
+  const textIntervalId = useRef(null);
   const currentSign = useRef(null);
-  const [emoji, setEmoji] = useState(null);
+  currentSign.current = new Array(10).fill(0);
+  const canvasRef2 = useRef(null);
   const [toggle, setToggle] = useState(false);
   const [text, setText] = useState('');
   const [link, setLink] = useState(false);
@@ -42,9 +42,6 @@ function App() {
     setLink(toggle => !toggle);
   };
 
-  const images = { thumbs_up: thumbs_up, victory: victory };
-  ///////// NEW STUFF ADDED STATE HOOK
-
   const runHandpose = async () => {
     const net = await handpose.load();
     console.log("Handpose model loaded.");
@@ -52,6 +49,20 @@ function App() {
     detectionId.current = setInterval(() => {
       detect(net);
     }, 16.7);
+
+
+    textIntervalId.current = setInterval(() => {
+      let mxIndex = -1;
+      let mx = -10000
+      const map = [one, two, three, four, five, six, seven, eight];
+      for (let i = 0; i < 10; i++) {
+        if (currentSign.current[i] > mx) {
+          mx = currentSign.current[i]
+          mxIndex = i;
+        }
+      }
+      !link && setText(text => text + ' ' + (map[mxIndex - 1] === undefined ? ' ' : map[mxIndex-1]));
+    }, 3000)
   };
 
   const detect = async (net) => {
@@ -71,7 +82,6 @@ function App() {
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
       const hand = await net.estimateHands(video);
-
       if (hand.length > 0) {
         const GE = new fp.GestureEstimator([
           gesture2,
@@ -85,16 +95,13 @@ function App() {
         ]);
         const gesture = await GE.estimate(hand[0].landmarks, 4);
         if (gesture.gestures !== undefined && gesture.gestures.length > 0) {
-          console.log(gesture.gestures);
-
           const confidence = gesture.gestures.map(
             (prediction) => prediction.confidence
           );
           const maxConfidence = confidence.indexOf(
             Math.max.apply(null, confidence)
           );
-          console.log(gesture.gestures[maxConfidence].name);
-          if (!currentSign.current) currentSign.current = gesture.gestures[maxConfidence].name;
+          currentSign.current[Number(gesture.gestures[maxConfidence].name)]++;
         }
       }
       const ctx = canvasRef.current.getContext("2d");
@@ -104,14 +111,19 @@ function App() {
 
   const onClick = (e) => {
     e.preventDefault();
-    const map = [one, two, three, four, five, six, seven, eight];
-    console.log(map[Number(currentSign.current)-1]);
     if (toggle) {
+      let mxIndex = -1;
+      let mx = -10000
+      const map = [one, two, three, four, five, six, seven, eight];
+      for (let i = 0; i < 10; i++) {
+        if (currentSign.current[i] > mx) {
+          mx = currentSign.current[i]
+          mxIndex = i;
+        }
+      }
+      link && window.open(`http://${map[mxIndex - 1]}`);
       clearInterval(detectionId.current);
-      setText(text => text + ' ' + map[Number(currentSign.current)-1]);
-      link && setTimeout(() => {
-        window.open(map[Number(currentSign.current)-1]);
-      }, 2000)
+      clearInterval(textIntervalId.current);
     } else {
       currentSign.current = null;
       runHandpose();
@@ -145,9 +157,23 @@ function App() {
                 height: 300,
               }}
             />
+            <canvas
+              ref={canvasRef2}
+              style={{
+                position: "absolute",
+                marginLeft: "auto",
+                marginRight: "auto",
+                left: 0,
+                right: 0,
+                textAlign: "center",
+                zindex: 9,
+                width: 480,
+                height: 300,
+              }}
+            />
           </div>
           <Divider />
-          <Switch onChange={handleChange} color="primary"/>
+          <Switch onChange={handleChange} color="primary" />
           <List dense={true} className="listStyle">
             {
               [{
@@ -177,7 +203,7 @@ function App() {
               }].map(({
                 text,
                 setText
-              }, index) => <Item key={index} text={text} index={index+1} setText={(e) => setText(e.target.value)} link={link}/>)
+              }, index) => <Item key={index} text={text} index={index + 1} setText={(e) => setText(e.target.value)} link={link} />)
             }
           </List>
         </div>
@@ -203,28 +229,6 @@ function App() {
           </div>
         </div>
       </div>
-      <header className="App-header">
-        {/* NEW STUFF */}
-        {emoji !== null ? (
-          <img
-            src={images[emoji]}
-            style={{
-              position: "absolute",
-              marginLeft: "auto",
-              marginRight: "auto",
-              left: 400,
-              bottom: 500,
-              right: 0,
-              textAlign: "center",
-              height: 100,
-            }}
-          />
-        ) : (
-            ""
-          )}
-
-        {/* NEW STUFF */}
-      </header>
     </div >
   );
 }
